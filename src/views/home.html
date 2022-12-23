@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script> 
+    window.onload = ()=>{
+        let  lista = document.getElementById("lista");
+        fetch("http://localhost:3031/api/movies")
+        .then((respuesta)=>{
+            return respuesta.json();
+        })
+        .then((data)=>{
+            let filas = "";
+            data.data.forEach(element => {
+                console.log(element.genre);
+                filas += 
+                `<tr>
+                <td>${element.id}</td>
+                <td>${element.title}</td>
+                <td>${element.rating}</td>
+                <td>${element.awards}</td>
+                <td>${element.length}</td>
+                <td>${(element.genre) ? element.genre.name : ""}</td>
+                </tr>`;
+            });
+            lista.querySelector("tbody").innerHTML = filas;
+        })
+    }
+        
+    </script>
+    <h1>Lista de peliculas</h1>
+    <table id="lista" border="1">
+        <thead>
+            <tr>
+                <th>#ID</th>
+                <th>titulo</th>
+                <th>calificacion</th>
+                <th>premios</th>
+                <th>duracion</th>
+                <th>genero</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+</html>
