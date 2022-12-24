@@ -33,6 +33,7 @@ const apiMoviesRouter = require('./routes/api/movies')
 const apiGenresRouter = require('./routes/api/genres')
 //Aquí llamo a la ruta de las api de actors
 const apiActorsRouter = require('./routes/api/actors')
+const frontRouter = require('./routes/front')
 
 
 app.use(express.static(path.resolve(__dirname, '../public')));
@@ -42,6 +43,7 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 app.use('/api/movies',apiMoviesRouter);
 app.use('/api/actors',apiActorsRouter);
 app.use('/api/genres',apiGenresRouter);
+app.use('/front',frontRouter);
 
 
 //Activando el servidor desde express

@@ -3,7 +3,7 @@ window.onload = () => {
     let btnEditar = document.querySelector(".botonEditar");
     let btnAgregar = document.querySelector(".botonAgregar");
     let botonBorrar = document.querySelector(".botonBorrar");
-    let id = 57;
+    let id = 5;
     //llamada de api traer Generos para llenar la lista de generos en el select
     fetch("http://localhost:3031/api/genres")
     .then((respuesta)=>{

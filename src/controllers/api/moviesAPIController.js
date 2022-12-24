@@ -35,16 +35,28 @@ const moviesAPIController = {
                 include : ['genre']
             })
             .then(movie => {
-                let respuesta = {
-                    meta: {
-                        status: 200,
-                        total: movie.length,
-                        url: '/api/movie/:id'
-                    },
-                    data: movie
+                if(movie != null){
+                    let respuesta = {
+                        meta: {
+                            status: 200,
+                            total: movie.length,
+                            url: '/api/movie/:id'
+                        },
+                        data: movie
+                    }
+                    res.json(respuesta);
                 }
-                res.json(respuesta);
-            });
+                else{
+                    let respuesta = {
+                        meta: {
+                            status: 404,
+                            url: '/api/movie/:id'
+                        },
+                    }
+                    res.json(respuesta);
+                }
+            })
+            .catch(error => console.log(error))
     },
     'recomended': (req, res) => {
         db.Movie.findAll({

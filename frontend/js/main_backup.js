@@ -1,9 +1,18 @@
+function favorita(element,id){
+  let listaFavoritas = JSON.parse(localStorage.getItem("favoritas")) ?? [];
+    if(!listaFavoritas.includes(id)){
+      listaFavoritas.push(id);
+      localStorage.setItem("favoritas",JSON.stringify(listaFavoritas));
+      element.classList.add("disabled");
+      
+    }
+}
 window.onload = () => {
   const app = document.getElementById("root");
   const container = document.createElement("div");
   container.setAttribute("class", "container");
   app.appendChild(container);
-
+  
   // Aqui debemos agregar nuestro fetch
   let  lista = document.getElementById("lista");
   fetch("http://localhost:3031/api/movies")
@@ -14,7 +23,7 @@ window.onload = () => {
       let filas = "";
 
       let data = peliculas.data;
-
+      let listaFavoritas = JSON.parse(localStorage.getItem("favoritas")) ?? [];
       data.forEach((movie) => {
         const card = document.createElement("div");
         card.setAttribute("class", "card");
@@ -27,7 +36,14 @@ window.onload = () => {
 
         const duracion = document.createElement("p");
         duracion.textContent = `Duración: ${movie.length}`;
-
+        const estrella = document.createElement("i");
+        if(listaFavoritas.includes(movie.id)){
+          estrella.classList.add("fa-solid","fa-star","fa-2x","disabled");
+        }
+        else{
+          estrella.classList.add("fa-solid","fa-star","fa-2x");
+          estrella.setAttribute("onClick","favorita(this,"+movie.id+")");
+        }
         container.appendChild(card);
         card.appendChild(h1);
         card.appendChild(p);
@@ -37,7 +53,7 @@ window.onload = () => {
           card.appendChild(genero);
         }
         card.appendChild(duracion);
-
+        card.appendChild(estrella)
         
       });
   })
